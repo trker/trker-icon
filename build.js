@@ -5,7 +5,7 @@ const ROOT     = __dirname;
 const SVG_DIR  = path.join(ROOT, 'svgs');
 const DIST_DIR = path.join(ROOT, 'dist');
 const NAME     = 'trker-icon';
-const PREFIX   = 'ti';
+const PREFIX   = 'trker';
 
 if (!fs.existsSync(DIST_DIR)) fs.mkdirSync(DIST_DIR, { recursive: true });
 
