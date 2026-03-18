@@ -1,0 +1,22 @@
+{
+    "name": "trker-icon",
+    "version": "1.0.0",
+    "description": "Open source SVG icon library for developers",
+    "main": "dist/trker-icon.css",
+    "files": [
+        "dist",
+        "svgs"
+    ],
+    "keywords": [
+        "icons",
+        "svg",
+        "webfont",
+        "css"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/trker/trker-icon"
+    },
+    "homepage": "https://trker-icon.com"
+}
