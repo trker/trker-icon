@@ -1,37 +1,37 @@
 {
-    "name":  "trker-icon",
-    "version":  "1.0.0",
-    "description":  "Open source SVG icon library for developers",
-    "main":  "dist/trker-icon.css",
-    "files":  [
-                  "dist",
-                  "svgs"
-              ],
-    "keywords":  [
-                     "icons",
-                     "svg",
-                     "webfont",
-                     "css"
-                 ],
-    "license":  "MIT",
-    "repository":  {
-                       "type":  "git",
-                       "url":  "https://github.com/trker/trker-icon"
-                   },
-    "homepage":  "https://trker-icon.com",
-    "dependencies":  {
-                         "svg2ttf":  "^6.0.3",
-                         "svgicons2svgfont":  "^15.0.1",
-                         "ttf2woff":  "^3.0.0",
-                         "ttf2woff2":  "^8.0.1"
-                     },
-    "scripts":  {
-                    "build":  "node build.js"
-                },
-    "devDependencies":  {
-                            "ttf2woff":  "*",
-                            "svgicons2svgfont":  "*",
-                            "svg2ttf":  "*",
-                            "ttf2woff2":  "*"
-                        }
+    "name": "trker-icon",
+    "version": "1.0.0",
+    "description": "Open source SVG icon library for developers",
+    "main": "dist/trker-icon.css",
+    "files": [
+        "dist",
+        "svgs"
+    ],
+    "keywords": [
+        "icons",
+        "svg",
+        "webfont",
+        "css"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/trker/trker-icon"
+    },
+    "homepage": "https://trkericon.com",
+    "dependencies": {
+        "svg2ttf": "^6.0.3",
+        "svgicons2svgfont": "^15.0.1",
+        "ttf2woff": "^3.0.0",
+        "ttf2woff2": "^8.0.1"
+    },
+    "scripts": {
+        "build": "node build.js"
+    },
+    "devDependencies": {
+        "svg2ttf": "*",
+        "svgicons2svgfont": "*",
+        "ttf2woff": "*",
+        "ttf2woff2": "*"
+    }
 }

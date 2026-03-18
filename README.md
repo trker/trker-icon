@@ -1,44 +1,79 @@
 # trker-icon
 
-Open source SVG icon library with 28+ carefully crafted icons for developers.
+Open source SVG icon library with 28 free icons for developers. Build custom webfont packs with 8,500+ icons at [trkericon.com](https://trkericon.com).
 
-[![npm version](https://img.shields.io/npm/v/trker-icon.svg)](https://www.npmjs.com/package/trker-icon)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## Installation
+## Usage
 
-```bash
-npm install trker-icon
-```
-
-Or via CDN:
+### CDN (quickest)
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/trker-icon@latest/dist/trker-icon.css">
 ```
 
-## Usage
+### Download
+
+Grab `dist/trker-icon.css` and `dist/fonts/` from this repo and include locally:
 
 ```html
-<i class="ti ti-home"></i>
-<i class="ti ti-user"></i>
-<i class="ti ti-search"></i>
+<link rel="stylesheet" href="path/to/trker-icon.css">
 ```
 
-## SVG Usage
-
-All icons are available as standalone SVG files in the `svgs/` directory:
+### HTML
 
 ```html
-<img src="node_modules/trker-icon/svgs/home.svg" width="24" height="24">
+<i class="ti ti-check"></i>
+<i class="ti ti-arrow-left"></i>
+<i class="ti ti-bell-jingle"></i>
 ```
 
-## Icon Browser & Premium
+### SVG files
 
-Browse all icons and build custom webfont packs at **[trker-icon.com](https://trker-icon.com)**.
+All icons are available as standalone SVGs in `svgs/`:
 
-Premium users get access to 8,500+ icons, unlimited packs, and CDN hosting.
+```html
+<img src="svgs/check.svg" width="24" height="24">
+```
+
+## Build from source
+
+Clone the repo, install deps, and run the build:
+
+```bash
+git clone https://github.com/trker/trker-icon.git
+cd trker-icon
+npm install
+npm run build
+```
+
+This generates `dist/trker-icon.css`, `dist/trker-icon.min.css`, and font files under `dist/fonts/`.
+
+## Free icons (28)
+
+| Name | Class |
+|------|-------|
+| arrow-left | `ti-arrow-left` |
+| arrow-right | `ti-arrow-right` |
+| bell-jingle | `ti-bell-jingle` |
+| check | `ti-check` |
+| close | `ti-close` |
+| download | `ti-download` |
+| eye | `ti-eye` |
+| heart | `ti-heart` |
+| home | `ti-home` |
+| menu | `ti-menu` |
+| search | `ti-search` |
+| settings | `ti-settings` |
+| star | `ti-star` |
+| user | `ti-user` |
+
+> Full icon list in `dist/trker-icon.json`
+
+## Premium
+
+8,500+ icons, unlimited custom packs, and CDN hosting at **[trkericon.com](https://trkericon.com)**.
 
 ## License
 
-MIT © trker-icon
+MIT Â© trker-icon
