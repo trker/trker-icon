@@ -5,17 +5,20 @@
        url('fonts/trker-icon.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: block;
 }
+
 .ti {
   font-family: 'trker-icon' !important;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
   line-height: 1;
+  display: inline-block;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
 }
 
 .ti-arrow-left::before { content: "\e001"; }
@@ -46,3 +49,51 @@
 .ti-tree::before { content: "\e01a"; }
 .ti-upload::before { content: "\e01b"; }
 .ti-user::before { content: "\e01c"; }
+
+/* Sizing */
+.ti-xs { font-size: 0.75em; }
+.ti-sm { font-size: 0.875em; }
+.ti-lg { font-size: 1.33em; }
+.ti-2x { font-size: 2em; }
+.ti-3x { font-size: 3em; }
+.ti-4x { font-size: 4em; }
+.ti-5x { font-size: 5em; }
+
+/* Fixed Width */
+.ti-fw { width: 1.25em; text-align: center; }
+
+/* Rotate & Flip */
+.ti-rotate-90  { transform: rotate(90deg); }
+.ti-rotate-180 { transform: rotate(180deg); }
+.ti-rotate-270 { transform: rotate(270deg); }
+.ti-flip-h     { transform: scaleX(-1); }
+.ti-flip-v     { transform: scaleY(-1); }
+
+/* Border */
+.ti-border        { padding: 0.2em 0.25em; border: 0.08em solid; border-radius: 0.1em; }
+.ti-border-circle { padding: 0.2em 0.25em; border: 0.08em solid; border-radius: 50%; }
+.ti-border-square { padding: 0.2em 0.25em; border: 0.08em solid; border-radius: 0; }
+
+/* Pull */
+.ti-pull-left  { float: left;  margin-right: 0.3em; }
+.ti-pull-right { float: right; margin-left: 0.3em; }
+
+/* Stack */
+.ti-stack     { display: inline-block; height: 2em; width: 2em; line-height: 2em; vertical-align: middle; position: relative; }
+.ti-stack-1x  { position: absolute; width: 100%; text-align: center; line-height: inherit; }
+.ti-stack-2x  { position: absolute; width: 100%; text-align: center; line-height: inherit; font-size: 2em; }
+
+/* Animations */
+@keyframes ti-spin   { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes ti-pulse  { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+@keyframes ti-beat   { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+@keyframes ti-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-25%); } }
+@keyframes ti-shake  { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
+@keyframes ti-fade   { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+.ti-spin   { animation: ti-spin   1s linear infinite; }
+.ti-pulse  { animation: ti-pulse  2s ease-in-out infinite; }
+.ti-beat   { animation: ti-beat   0.8s ease-in-out infinite; }
+.ti-bounce { animation: ti-bounce 1s ease infinite; }
+.ti-shake  { animation: ti-shake  0.5s ease-in-out infinite; }
+.ti-fade   { animation: ti-fade   2s ease-in-out infinite; }

@@ -36,30 +36,95 @@ function buildSvgFont() {
 }
 
 function buildCss() {
-    const face = `@font-face {
-  font-family: '${NAME}';
-  src: url('fonts/${NAME}.woff2') format('woff2'),
-       url('fonts/${NAME}.woff') format('woff'),
-       url('fonts/${NAME}.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-.${PREFIX} {
-  font-family: '${NAME}' !important;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
-}
-`;
-    const classes = Object.entries(icons)
-        .map(([n, { codepoint }]) => `.${PREFIX}-${n}::before { content: "\\${codepoint.toString(16)}"; }`)
-        .join('\n');
-    return face + '\n' + classes + '\n';
+    const p = PREFIX;
+    const n = NAME;
+    let css = '';
+
+    // --- Font face + base class ---
+    css += `@font-face {\n`;
+    css += `  font-family: '${n}';\n`;
+    css += `  src: url('fonts/${n}.woff2') format('woff2'),\n`;
+    css += `       url('fonts/${n}.woff') format('woff'),\n`;
+    css += `       url('fonts/${n}.ttf') format('truetype');\n`;
+    css += `  font-weight: normal;\n`;
+    css += `  font-style: normal;\n`;
+    css += `  font-display: block;\n`;
+    css += `}\n\n`;
+
+    css += `.${p} {\n`;
+    css += `  font-family: '${n}' !important;\n`;
+    css += `  speak: never;\n`;
+    css += `  font-style: normal;\n`;
+    css += `  font-weight: normal;\n`;
+    css += `  font-variant: normal;\n`;
+    css += `  text-transform: none;\n`;
+    css += `  line-height: 1;\n`;
+    css += `  display: inline-block;\n`;
+    css += `  -webkit-font-smoothing: antialiased;\n`;
+    css += `  -moz-osx-font-smoothing: grayscale;\n`;
+    css += `}\n\n`;
+
+    // --- Icon glyphs ---
+    Object.entries(icons).forEach(([name, { codepoint }]) => {
+        css += `.${p}-${name}::before { content: "\\${codepoint.toString(16)}"; }\n`;
+    });
+    css += '\n';
+
+    // --- Sizing ---
+    css += `/* Sizing */\n`;
+    css += `.${p}-xs { font-size: 0.75em; }\n`;
+    css += `.${p}-sm { font-size: 0.875em; }\n`;
+    css += `.${p}-lg { font-size: 1.33em; }\n`;
+    css += `.${p}-2x { font-size: 2em; }\n`;
+    css += `.${p}-3x { font-size: 3em; }\n`;
+    css += `.${p}-4x { font-size: 4em; }\n`;
+    css += `.${p}-5x { font-size: 5em; }\n\n`;
+
+    // --- Fixed Width ---
+    css += `/* Fixed Width */\n`;
+    css += `.${p}-fw { width: 1.25em; text-align: center; }\n\n`;
+
+    // --- Rotate & Flip ---
+    css += `/* Rotate & Flip */\n`;
+    css += `.${p}-rotate-90  { transform: rotate(90deg); }\n`;
+    css += `.${p}-rotate-180 { transform: rotate(180deg); }\n`;
+    css += `.${p}-rotate-270 { transform: rotate(270deg); }\n`;
+    css += `.${p}-flip-h     { transform: scaleX(-1); }\n`;
+    css += `.${p}-flip-v     { transform: scaleY(-1); }\n\n`;
+
+    // --- Border ---
+    css += `/* Border */\n`;
+    css += `.${p}-border        { padding: 0.2em 0.25em; border: 0.08em solid; border-radius: 0.1em; }\n`;
+    css += `.${p}-border-circle { padding: 0.2em 0.25em; border: 0.08em solid; border-radius: 50%; }\n`;
+    css += `.${p}-border-square { padding: 0.2em 0.25em; border: 0.08em solid; border-radius: 0; }\n\n`;
+
+    // --- Pull ---
+    css += `/* Pull */\n`;
+    css += `.${p}-pull-left  { float: left;  margin-right: 0.3em; }\n`;
+    css += `.${p}-pull-right { float: right; margin-left: 0.3em; }\n\n`;
+
+    // --- Stack ---
+    css += `/* Stack */\n`;
+    css += `.${p}-stack     { display: inline-block; height: 2em; width: 2em; line-height: 2em; vertical-align: middle; position: relative; }\n`;
+    css += `.${p}-stack-1x  { position: absolute; width: 100%; text-align: center; line-height: inherit; }\n`;
+    css += `.${p}-stack-2x  { position: absolute; width: 100%; text-align: center; line-height: inherit; font-size: 2em; }\n\n`;
+
+    // --- Animations ---
+    css += `/* Animations */\n`;
+    css += `@keyframes ${p}-spin   { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }\n`;
+    css += `@keyframes ${p}-pulse  { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }\n`;
+    css += `@keyframes ${p}-beat   { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }\n`;
+    css += `@keyframes ${p}-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-25%); } }\n`;
+    css += `@keyframes ${p}-shake  { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }\n`;
+    css += `@keyframes ${p}-fade   { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }\n\n`;
+    css += `.${p}-spin   { animation: ${p}-spin   1s linear infinite; }\n`;
+    css += `.${p}-pulse  { animation: ${p}-pulse  2s ease-in-out infinite; }\n`;
+    css += `.${p}-beat   { animation: ${p}-beat   0.8s ease-in-out infinite; }\n`;
+    css += `.${p}-bounce { animation: ${p}-bounce 1s ease infinite; }\n`;
+    css += `.${p}-shake  { animation: ${p}-shake  0.5s ease-in-out infinite; }\n`;
+    css += `.${p}-fade   { animation: ${p}-fade   2s ease-in-out infinite; }\n`;
+
+    return css;
 }
 
 function minify(css) {
