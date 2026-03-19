@@ -1,5 +1,6 @@
 ﻿const fs   = require('fs');
 const path = require('path');
+const outlineStroke = require('svg-outline-stroke');
 
 const ROOT     = __dirname;
 const SVG_DIR  = path.join(ROOT, 'svgs');
@@ -15,24 +16,19 @@ const svgFiles = fs.readdirSync(SVG_DIR).filter(f => f.endsWith('.svg')).sort();
 if (!svgFiles.length) { console.error('No SVGs found in', SVG_DIR); process.exit(1); }
 console.log(`Found ${svgFiles.length} SVGs`);
 
-function preprocessSvg(content) {
-    content = content.replace(/<svg([^>]*)fill="none"([^>]*)>/g, '<svg$1$2>');
-    content = content.replace(/<svg([^>]*)\sstroke(?:-\w+)?="[^"]*"/g, '<svg$1');
-    content = content.replace(/<(path|circle|rect|polyline|polygon|line|ellipse)([^>]*?)(\s*\/?>)/g,
-        (match, tag, attrs, close) => {
-            attrs = attrs.replace(/\s+stroke(?:-\w+)?="[^"]*"/g, '');
-            attrs = attrs.replace(/\s+fill="none"/g, '');
-            if (!/fill=/.test(attrs)) attrs += ' fill="currentColor"';
-            return `<${tag}${attrs}${close}`;
+async function preprocessSvgs() {
+    for (const file of svgFiles) {
+        const raw = fs.readFileSync(path.join(SVG_DIR, file), 'utf8');
+        try {
+            // Convert stroke paths to filled paths
+            const outlined = await outlineStroke(raw, { optCurves: true, steps: 4, round: 2 });
+            fs.writeFileSync(path.join(TMP_DIR, file), outlined);
+        } catch (e) {
+            // Fallback: just copy as-is
+            fs.writeFileSync(path.join(TMP_DIR, file), raw);
         }
-    );
-    return content;
+    }
 }
-
-svgFiles.forEach(file => {
-    const raw = fs.readFileSync(path.join(SVG_DIR, file), 'utf8');
-    fs.writeFileSync(path.join(TMP_DIR, file), preprocessSvg(raw));
-});
 
 const icons = {};
 svgFiles.forEach((file, i) => {
@@ -79,34 +75,45 @@ function minify(css) {
 }
 
 async function main() {
-    console.log('Preprocessing SVGs (stroke to fill)...');
+    console.log('Converting stroke paths to filled paths...');
+    await preprocessSvgs();
+
     console.log('Building SVG font...');
     const svgFont = await buildSvgFont();
+
     console.log('Converting to TTF...');
     const svg2ttf = require('svg2ttf');
     const ttf = Buffer.from(svg2ttf(svgFont.toString(), {}).buffer);
+
     console.log('Converting to WOFF2...');
     const ttf2woff2 = require('ttf2woff2').default;
     const woff2 = ttf2woff2(ttf);
+
     console.log('Converting to WOFF...');
     const ttf2woff = require('ttf2woff');
     const woff = Buffer.from(ttf2woff(ttf).buffer);
+
     const fontsDir = path.join(DIST_DIR, 'fonts');
     if (!fs.existsSync(fontsDir)) fs.mkdirSync(fontsDir, { recursive: true });
     fs.writeFileSync(path.join(fontsDir, `${NAME}.ttf`),   ttf);
     fs.writeFileSync(path.join(fontsDir, `${NAME}.woff2`), woff2);
     fs.writeFileSync(path.join(fontsDir, `${NAME}.woff`),  woff);
     console.log('Fonts -> dist/fonts/');
+
     const css = buildCss();
     fs.writeFileSync(path.join(DIST_DIR, `${NAME}.css`),     css);
     fs.writeFileSync(path.join(DIST_DIR, `${NAME}.min.css`), minify(css));
     console.log('CSS   -> dist/');
+
     const map = {};
     Object.entries(icons).forEach(([n,{codepoint}]) => map[n] = codepoint.toString(16));
     fs.writeFileSync(path.join(DIST_DIR, `${NAME}.json`), JSON.stringify(map, null, 2));
     console.log('JSON  -> dist/');
+
+    // Cleanup tmp
     fs.readdirSync(TMP_DIR).forEach(f => fs.unlinkSync(path.join(TMP_DIR, f)));
     fs.rmdirSync(TMP_DIR);
+
     console.log(`\nDone! ${svgFiles.length} icons built.`);
 }
 

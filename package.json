@@ -1,6 +1,6 @@
 {
     "name": "trker-icon",
-    "version": "1.1",
+    "version": "1.2",
     "description": "Open source SVG icon library for developers",
     "main": "dist/trker-icon.css",
     "files": [
@@ -20,6 +20,7 @@
     },
     "homepage": "https://trkericon.com",
     "dependencies": {
+        "svg-outline-stroke": "^1.3.1",
         "svg2ttf": "^6.0.3",
         "svgicons2svgfont": "^15.0.1",
         "ttf2woff": "^3.0.0",
