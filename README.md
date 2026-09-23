@@ -76,4 +76,4 @@ This generates `dist/trker-icon.css`, `dist/trker-icon.min.css`, and font files 
 
 ## License
 
-MIT Â© trker-icon
+MIT © trker-icon
