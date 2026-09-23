@@ -14,7 +14,7 @@ if (!fs.existsSync(TMP_DIR))  fs.mkdirSync(TMP_DIR,  { recursive: true });
 
 const svgFiles = fs.readdirSync(SVG_DIR).filter(f => f.endsWith('.svg')).sort();
 if (!svgFiles.length) { console.error('No SVGs found in', SVG_DIR); process.exit(1); }
-console.log(`Found ${svgFiles.length} SVGs`);
+//console.log(`Found ${svgFiles.length} SVGs`);
 
 async function preprocessSvgs() {
     for (const file of svgFiles) {
