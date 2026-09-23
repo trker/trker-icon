@@ -69,9 +69,7 @@ This generates `dist/trker-icon.css`, `dist/trker-icon.min.css`, and font files 
 | user | `ti-user` |
 
 > Full icon list in `dist/trker-icon.json`
-
 ## Premium
-
 8,500+ icons, unlimited custom packs, and CDN hosting at **[trkericon.com](https://trkericon.com)**.
 
 ## License
